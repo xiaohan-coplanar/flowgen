@@ -1,0 +1,27 @@
+import { exec } from 'child_process';
+import { promisify } from 'util';
+import { ExecException } from 'child_process';
+
+const execAsync = promisify(exec);
+
+interface ExecError extends ExecException {
+  stderr?: string;
+}
+
+export async function renderMermaid(inputPath: string, outputPath: string = 'output.png'): Promise<string> {
+  try {
+    // Call mmdc CLI
+    await execAsync(`mmdc -i ${inputPath} -o ${outputPath}`);
+
+    console.log('✅ Image generated successfully:', outputPath);
+    return outputPath;
+  } catch (err) {
+    const error = err as ExecError;
+    console.error('❌ Error:', error.stderr || error);
+    throw error;
+  } 
+}
+
+renderMermaid('sample.mmd', 'sample_output.png')
+  .then(() => console.log('✅ Done'))
+  .catch((err: Error) => console.error('❌ Error:', err));

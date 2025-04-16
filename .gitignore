@@ -1,0 +1,17 @@
+# Node
+node_modules/
+dist/
+*.log
+
+# TypeScript
+*.tsbuildinfo
+
+# Env
+.env
+
+# IDE
+.vscode/
+.idea/
+
+*.js
+*.png
