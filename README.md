@@ -14,12 +14,13 @@ npm install
 2. Run the Build Process:
 ```sh
 npm run build
+npm link
 ```
-3. Run the demo:
+3. Run the demo via command line:
 ```sh
-npm run render
+flowgen "sample.mmd"
 ```
-It will genenerate a sample_output.png file in the build folder based on the sample.mmd file.
+It will genenerate a output.png file in the build folder based on the sample.mmd file.
 
 ## Set Up MCP Server
 1. Run the Build Process:
