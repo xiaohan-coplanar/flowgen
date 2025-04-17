@@ -4,6 +4,8 @@ flowgen is an open-source tool that turns plain text into beautiful, structured 
 ## Requirements
 
 - Node.js 14 or higher
+- Chrome or Chromium-based browser (for rendering)
+
 ## Quick Start
 1. Install dependencies:
 ```sh
@@ -24,7 +26,7 @@ It will genenerate a sample_output.png file in the build folder based on the sam
 ```sh
 npm run build
 ```
-2. Download Claude Desktop from [here](https://www.anthropic.com/news/claude-desktop) or any other MCP client.
+2. Download Claude Desktop from [here](https://claude.ai/download) or any other MCP client.
 3. Open the claude_desktop_config.json file and add the following configuration:
 ```json
 {
@@ -34,13 +36,13 @@ npm run build
         "args": [
             "-y",
             "@modelcontextprotocol/server-filesystem",
-            "/path/to/flowgen"
+            "[PATH TO PARENT FOLDER]/flowgen"
             ]
         },
         "flowgen": {
             "command": "node",
             "args": [
-                "/path/to/flowgen/build/index.js"
+                "[PATH TO PARENT FOLDER]/flowgen/build/index.js"
             ]
         }
     }
