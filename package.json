@@ -2,18 +2,21 @@
   "name": "flowgen",
   "version": "1.0.0",
   "description": "flowgen is an open-source tool that turns plain text into beautiful, structured flowcharts.  Designed for developers, writers, and technical communicators, flowgen lets you express logic, processes, or ideas in simple, readable text—and automatically converts it into flow diagrams.",
-  "main": "index.js",
+  "main": "index.js", 
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "start": "ts-node src/render.ts",
-    "dev": "ts-node-dev src/render.ts"
+    "start": "npm run build && node build/index.js",
+    "render": "npm run build && node build/render.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@mermaid-js/mermaid-cli": "^10.8.0"
+    "@mermaid-js/mermaid-cli": "^11.4.2",
+    "@modelcontextprotocol/sdk": "^1.9.0",
+    "zod": "^3.24.3"
   },
   "devDependencies": {
     "@types/node": "^22.14.1",

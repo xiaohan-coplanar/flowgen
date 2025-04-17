@@ -11,16 +11,15 @@ interface ExecError extends ExecException {
 export async function renderMermaid(inputPath: string, outputPath: string = 'output.png'): Promise<string> {
   try {    
     await execAsync(`npx mmdc -i "${inputPath}" -o "${outputPath}"`);
-
-    console.log('✅ Image generated successfully:', outputPath);
     return outputPath;
   } catch (err) {
     const error = err as ExecError;
-    console.error('❌ Error:', error.stderr || error);
     throw error;
   } 
 }
 
-renderMermaid('sample.mmd', 'sample_output.png')
-  .then(() => console.log('✅ Done'))
-  .catch((err: Error) => console.error('❌ Error:', err));
+if (import.meta.url === `file://${process.argv[1]}`) {
+  renderMermaid('sample.mmd', 'sample_output.png')
+    .then(() => console.log('✅ Done'))
+    .catch((err: Error) => console.error('❌ Error:', err));
+}
