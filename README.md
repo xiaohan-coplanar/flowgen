@@ -18,7 +18,7 @@ npm link
 ```
 3. Run the demo via command line:
 ```sh
-flowgen "sample.mmd"
+flowgen sample.mmd
 ```
 It will genenerate a output.png file in the build folder based on the sample.mmd file.
 

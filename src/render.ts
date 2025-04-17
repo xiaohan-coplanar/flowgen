@@ -12,8 +12,11 @@ interface ExecError extends ExecException {
 
 export async function renderMermaid(inputPath: string, outputPath: string = 'output.png'): Promise<string> {
   try {    
-    await execAsync(`npx mmdc -i "${inputPath}" -o "${outputPath}"`);
-    return outputPath;
+    const input = resolve(process.cwd(), inputPath);
+    const output = resolve(process.cwd(), outputPath);
+
+    await execAsync(`npx mmdc -i "${input}" -o "${output}"`);
+    return output;
   } catch (err) {
     const error = err as ExecError;
     throw error;
