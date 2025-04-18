@@ -3,6 +3,7 @@ flowgen is an open-source tool that turns plain text into beautiful, structured 
 
 ## Requirements
 - Node.js 14 or higher
+- Chrome or Chromium-based browser (for rendering)
 - Mermaid.js library
 
 ### Installation
@@ -31,12 +32,13 @@ To use the MCP server functionality, you'll need:
 1. Run the Build Process:
 ```sh
 npm run build
+npm link
 ```
-2. Run the demo:
+3. Run the demo via command line:
 ```sh
-npm run render
+flowgen sample.mmd
 ```
-It will genenerate a sample_output.png file in the build folder based on the sample.mmd file.
+It will genenerate a output.png file in the build folder based on the sample.mmd file.
 
 ## Quick Start with MCP Server
 1. Run the Build Process:
@@ -52,13 +54,13 @@ npm run build
         "args": [
             "-y",
             "@modelcontextprotocol/server-filesystem",
-            "/path/to/flowgen"
+            "[PATH TO PARENT FOLDER]/flowgen"
             ]
         },
         "flowgen": {
             "command": "node",
             "args": [
-                "/path/to/flowgen/build/index.js"
+                "[PATH TO PARENT FOLDER]/flowgen/build/index.js"
             ]
         }
     }
