@@ -1,0 +1,72 @@
+import OpenAI from 'openai';
+import { writeFileSync } from 'fs';
+import { resolve } from 'path';
+import { fileURLToPath } from 'url';
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY, // Get API key from environment variable
+});
+
+/**
+ * Converts user requirements into Mermaid diagram syntax
+ * @param userRequirements The text describing what diagram to create
+ * @returns Path to the generated image file
+ */
+export async function generateMermaidFromText(
+  userRequirements: string,
+): Promise<string> {
+  const outputMmdPath = 'output.mmd';
+  const outputImagePath = 'output.png';
+
+  try {
+    // Craft prompt for the OpenAI API
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o-mini", // Use an appropriate model
+      messages: [
+        {
+          role: "system",
+          content: `You are a diagram generation assistant that converts user requirements into Mermaid diagram syntax. 
+          Create valid Mermaid syntax for a flowchart diagram based on the user's description.
+          Only return the Mermaid code without any explanation or markdown formatting.
+          The output should start with the diagram type declaration (e.g., \`\`\`mermaid\\nflowchart TD\\n\`\`\`).`
+        },
+        {
+          role: "user",
+          content: userRequirements
+        }
+      ],
+      temperature: 0.7,
+    });
+
+    // Extract the Mermaid syntax from the response
+    const mermaidSyntax = response.choices[0]?.message?.content?.trim() ?? '';
+    
+    // Clean up the Mermaid syntax (remove markdown code blocks if present)
+    const cleanedSyntax = mermaidSyntax
+      .replace(/^```mermaid\n/, '')
+      .replace(/\n```$/, '');
+    
+    // Save the Mermaid syntax to a file
+    const mmdFilePath = resolve(process.cwd(), outputMmdPath);
+    writeFileSync(mmdFilePath, cleanedSyntax);
+    return mmdFilePath;
+  } catch (error) {
+    console.error('❌ Error generating Mermaid diagram:', error);
+    throw error;
+  }
+}
+
+// Example usage if this file is run directly
+const currentFile = fileURLToPath(import.meta.url);
+const entryFile = resolve(process.argv[1]);
+
+if (currentFile === entryFile) {
+  // Example user requirement
+  const userRequirement = process.argv[2] || 
+    "Create a diagram showing a user authentication flow with login, registration, and password reset";
+  
+  console.log('Generating Mermaid diagram from text...');
+  generateMermaidFromText(userRequirement)
+    .then(outputPath => console.log(`✅ Done! Mermaid syntax saved at: ${outputPath}`))
+    .catch(err => console.error('❌ Error:', err));
+} 

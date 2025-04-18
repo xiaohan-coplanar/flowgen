@@ -16,11 +16,15 @@ npm install
 npm run build
 npm link
 ```
-3. Run the demo via command line:
+3. Add your OpenAI API key:
 ```sh
-flowgen sample.mmd
+export OPENAI_API_KEY="your_openai_api_key"
 ```
-It will genenerate a output.png file in the build folder based on the sample.mmd file.
+4. Run the demo via command line:
+```sh
+flowgen “your prompt here”
+```
+It will genenerate a output.png file in the current directory.
 
 ## Set Up MCP Server
 1. Run the Build Process:
