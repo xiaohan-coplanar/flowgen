@@ -1,10 +1,14 @@
 import OpenAI from 'openai';
+import dotenv from 'dotenv';
 import { writeFileSync } from 'fs';
 import { resolve } from 'path';
 import { fileURLToPath } from 'url';
 
+dotenv.config();
+
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY, // Get API key from environment variable
+  apiKey: process.env['LLM_API_KEY'], // Get API key from environment variable
+  baseURL: process.env['LLM_BASE_URL'],
 });
 
 /**
@@ -16,12 +20,11 @@ export async function generateMermaidFromText(
   userRequirements: string,
 ): Promise<string> {
   const outputMmdPath = 'output.mmd';
-  const outputImagePath = 'output.png';
 
   try {
     // Craft prompt for the OpenAI API
     const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini", // Use an appropriate model
+      model: process.env['LLM_MODEL'] as string, // Use an appropriate model
       messages: [
         {
           role: "system",

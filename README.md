@@ -16,9 +16,18 @@ npm install
 npm run build
 npm link
 ```
-3. Add your OpenAI API key:
+3. Add your LLM API key:
+It can be any LLM(OpenAI, Anthropic, Ollama etc.) as long as it supports the OpenAI API.
 ```sh
-export OPENAI_API_KEY="your_openai_api_key"
+export LLM_API_KEY="your_llm_api_key"
+export LLM_BASE_URL="your_llm_base_url"
+export LLM_MODEL="your_llm_model"
+```
+Or you can create a .env file in the root directory and add the following:
+```sh
+LLM_API_KEY="your_llm_api_key"
+LLM_BASE_URL="your_llm_base_url"
+LLM_MODEL="your_llm_model"
 ```
 4. Run the demo via command line:
 ```sh
