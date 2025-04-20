@@ -10,16 +10,7 @@ flowgen is an open-source tool that turns plain text into beautiful, structured 
     - MCP server (see below)
 
 ### Mermaid Installation
-Downloading and installing `Node.js` and `npm`: instruction [here](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
-
-Installing `Mermaid.js` using either yarn or npm:
-
-Using yarn:
-```sh
-npm install --global yarn
-yarn add mermaid
-```
-Using `npm`: `npm install` (under project root directory)
+Using `npm`: `npm install` (under project root directory). (Installing `Mermaid` via `yarn` is not recommended. )
 
 ### Additional Requirements for CLI 
 
