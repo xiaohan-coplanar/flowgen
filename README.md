@@ -2,21 +2,19 @@
 flowgen is an open-source tool that turns plain text into beautiful, structured flowcharts.  Designed for developers, writers, and technical communicators, flowgen lets you express logic, processes, or ideas in simple, readable text—and automatically converts it into flow diagrams.
 
 ## Requirements
-
 - Node.js 14 or higher
-- Chrome or Chromium-based browser (for rendering)
+- Chrome or Chromium-based browser (for rendering) 
+- Mermaid.js library (see below)
+- At least one of these two (`cli` mode or `mcp` mode)
+    - CLI LLM configuration (see below)
+    - MCP server (see below)
 
-## Quick Start
-1. Install dependencies:
-```sh
-npm install
-```
-2. Run the Build Process:
-```sh
-npm run build
-npm link
-```
-3. Add your LLM API key:
+### Mermaid Installation
+Using `npm`: `npm install` (under project root directory). (Installing `Mermaid` via `yarn` is not recommended. )
+
+### Additional Requirements for CLI 
+
+Add your LLM API key:
 It can be any LLM(OpenAI, Anthropic, Ollama etc.) as long as it supports the OpenAI API.
 ```sh
 export LLM_API_KEY="your_llm_api_key"
@@ -29,19 +27,37 @@ LLM_API_KEY="your_llm_api_key"
 LLM_BASE_URL="your_llm_base_url"
 LLM_MODEL="your_llm_model"
 ```
-4. Run the demo via command line:
+
+
+### Additional Requirements for MCP Server
+
+To use the MCP server functionality, you'll need:
+
+- An MCP client such as Claude Desktop ([download here](https://claude.ai/download))
+- A valid MCP configuration file:
+  - For Claude Desktop users: Follow the [setup instructions](https://modelcontextprotocol.io/quickstart/user) to create your `claude_desktop_config.json`
+  - For other MCP clients: Refer to your client's documentation for configuration details.
+
+## Quick Start (without MCP)
+
+1. Run the Build Process:
 ```sh
-flowgen “your prompt here”
+npm run build
+npm link
+```
+
+2. Run flowgen via command line:
+```sh
+flowgen "[your prompt here. For example: design and generate a flowchart of Yelp, simple version. ]"
 ```
 It will genenerate a output.png file in the current directory.
 
-## Set Up MCP Server
+## Quick Start with MCP Server
 1. Run the Build Process:
 ```sh
 npm run build
 ```
-2. Download Claude Desktop from [here](https://claude.ai/download) or any other MCP client.
-3. Open the claude_desktop_config.json file and add the following configuration:
+2. Open the config file (such as `claude_desktop_config.json`) and add the following configuration:
 ```json
 {
     "mcpServers": {
@@ -62,4 +78,7 @@ npm run build
     }
 }
 ```
-4. Restart the MCP client 
+
+3. Restart the MCP client. Now the MCP tooling should be available in the client.
+
+4. Run flowgen via MCP client; same as above (without MCP server). 
