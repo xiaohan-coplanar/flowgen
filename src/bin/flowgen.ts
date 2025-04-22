@@ -11,14 +11,12 @@ if (!userRequirements) {
 }
 
 console.log('Generating Mermaid diagram from text...');
-generateMermaidFromText(userRequirements)
-  .then((outputPath) => {
-    console.log(`✅ Mermaid syntax saved to ${outputPath}`);
-    return renderMermaid(outputPath, outputImagePath);
-  })
-  .then((finalOutputPath) => {
-    console.log(`✅ Diagram rendered to ${finalOutputPath}`);
-  })
-  .catch((err) => {
-    console.error('❌ Error:', err);
-  });
+try {
+  const outputPath = await generateMermaidFromText(userRequirements);
+  console.log(`✅ Mermaid syntax saved to ${outputPath}`);
+  const finalOutputPath = await renderMermaid(outputPath, outputImagePath);
+  console.log(`✅ Diagram rendered to ${finalOutputPath}`);
+} catch (err) {
+  console.error('❌ Error:', err);
+  process.exit(1);
+}
