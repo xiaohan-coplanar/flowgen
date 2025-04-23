@@ -6,6 +6,21 @@ import { fileURLToPath } from 'url';
 
 dotenv.config();
 
+const requiredEnvVars = ['LLM_API_KEY', 'LLM_BASE_URL', 'LLM_MODEL'];
+const missingVars: string[] = [];
+
+requiredEnvVars.forEach(varName => {
+  if (!process.env[varName]) {
+    missingVars.push(varName);
+  }
+});
+
+if (missingVars.length > 0) {
+  console.log('Missing required environment variables:', missingVars.join(', '));
+  console.log('Please set them in your .env file or environment variables.');
+  process.exit(1);
+}
+
 const openai = new OpenAI({
   apiKey: process.env['LLM_API_KEY'], // Get API key from environment variable
   baseURL: process.env['LLM_BASE_URL'],
