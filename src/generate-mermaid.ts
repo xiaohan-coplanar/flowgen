@@ -1,4 +1,4 @@
-import OpenAI from 'openai';
+import { OpenAI, AzureOpenAI } from 'openai';
 import dotenv from 'dotenv';
 import { writeFileSync } from 'fs';
 import { resolve } from 'path';
@@ -21,10 +21,19 @@ if (missingVars.length > 0) {
   process.exit(1);
 }
 
-const openai = new OpenAI({
-  apiKey: process.env['LLM_API_KEY'], // Get API key from environment variable
-  baseURL: process.env['LLM_BASE_URL'],
-});
+let openai: OpenAI | AzureOpenAI;
+if (process.env['LLM_BASE_URL']?.toLowerCase().includes("azure.com") || process.env['AZURE_API_VERSION']) {
+  openai = new AzureOpenAI({
+    apiKey: process.env['LLM_API_KEY'],
+    baseURL: process.env['LLM_BASE_URL'],
+    apiVersion: process.env['AZURE_API_VERSION'] || "2024-12-01-preview"
+  });
+} else {
+  openai = new OpenAI({
+    apiKey: process.env['LLM_API_KEY'],
+    baseURL: process.env['LLM_BASE_URL']
+  });
+}
 
 /**
  * Converts user requirements into Mermaid diagram syntax
