@@ -26,7 +26,7 @@ Or you can create a .env file in the root directory and add the following:
 LLM_API_KEY="your_llm_api_key"
 LLM_BASE_URL="your_llm_base_url" # e.g. https://api.openai.com/v1
 LLM_MODEL="your_llm_model" # e.g. gpt-4o
-AZURE_API_VERSION="your_azure_api_version" # optional, only for Azure OpenAI
+AZURE_API_VERSION="your_azure_api_version" # optional, only for Azure OpenAI e.g. 2024-12-01-preview
 ```
 
 
